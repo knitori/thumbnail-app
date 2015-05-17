@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block head %}
+<script type="text/javascript">
+function thumbify() {
+    // sounds a bit like Zombify
+
+    var dimension = document.getElementById('dimension-select').value;
+    var input = document.getElementById('url-input');
+    var imageUrl = encodeURIComponent(input.value);
+    var url = '/thumbify/' + dimension + '/' + imageUrl;
+
+    var output = document.getElementById('thumbnail-output');
+    var img = document.createElement('img');
+    img.setAttribute('src', url);
+    img.setAttribute('alt', 'Thumbnail of ' + imageUrl);
+    output.appendChild(img);
+}
+</script>
+{% endblock %}
+
+{% block body %}
+    <select id="dimension-select">
+        <option value="100x100">100x100</option>
+        <option value="150x150">150x150</option>
+        <option value="200x200">200x200</option>
+        <option value="250x250">250x250</option>
+        <option value="300x300">300x300</option>
+    </select>
+    <input type="text" id="url-input" placeholder="http://" value="">
+    <button onclick="thumbify();">Thumbify</button>
+
+    <div id="thumbnail-output"></div>
+{% endblock %}

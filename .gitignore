@@ -1,0 +1,8 @@
+
+.idea/
+
+__pycache__/
+*.pyc
+*.pyo
+instance/
+thumbnailer/static/images/
