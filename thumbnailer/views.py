@@ -1,4 +1,5 @@
 
+import logging
 from contextlib import closing
 import tempfile
 import hashlib
@@ -9,6 +10,8 @@ from PIL import Image
 from flask import url_for, abort, render_template, redirect
 
 from . import app, db, models
+
+logger = logging.getLogger(__name__)
 
 REDIRECT_CODE = 301  # moved permanently
 DEFAULT_HEADERS = {
@@ -69,7 +72,6 @@ def thumbify(width, height, url):
             height=height,
         )
         db.session.add(thumb_model)
-        db.session.commit()
 
         fullurl = url_for('static', filename=static_path, _external=True)
         if os.path.exists(thumbnail):
@@ -78,8 +80,12 @@ def thumbify(width, height, url):
         try:
             im = Image.open(fd)
         except:
+            logger.exception('Could not open image.')
+            db.session.rollback()
             return abort(400, 'Provided URL might not be an image.')
+        im = im.convert('RGB')
         im.thumbnail((width, height))
         im.save(thumbnail, quality=90)
+        db.session.commit()
 
     return redirect(fullurl), REDIRECT_CODE
