@@ -4,7 +4,7 @@
 __pycache__/
 *.pyc
 *.pyo
-instance/
+instance/config.py
 thumbnailer/static/images/
 uwsgi.ini
 
