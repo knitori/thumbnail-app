@@ -3,7 +3,7 @@
 
 Creates thumbnails from images provided by URLs.
 
-A running version can be found at: http://thumb.chireiden.net/
+A running version can be found at: http://thumb.chireiden.net/ (nope, currently not available, because I'm too lazy to set it up again)
 
 Example usage:
 
